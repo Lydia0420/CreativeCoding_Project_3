@@ -1,6 +1,25 @@
 let userInput; 
-let correctAnswer = "Mickey"; 
 let feedback = "";
+let characters = [
+  { name: "Mickey", drawFunction: drawMickeyColors },
+  { name: "Patrick", drawFunction: drawPatrickColors },
+  { name: "Peppa", drawFunction: drawPeppaColors },
+  { name: "Squidward", drawFunction: drawSquidwardColors },
+  { name: "Garfield", drawFunction: drawGarfieldColors },
+  { name: "Loopy", drawFunction: drawLoppyColors },
+  { name: "Doraemon", drawFunction: drawDoraemonColors },
+  { name: "WinnieThePooh", drawFunction: drawWinnieThePoohColors },
+  { name: "Nick", drawFunction: drawNickColors },
+  { name: "Mario", drawFunction: drawMarioColors },
+  { name: "SpongeBob", drawFunction: drawSpongeBobColors },
+  { name: "PinkPanther", drawFunction: drawPinkPantherColors },
+  { name: "Nobita", drawFunction: drawNobitaColors },
+  { name: "Pompompurin", drawFunction: drawPompompurinColors },
+  { name: "MrKrabs", drawFunction: drawMrKrabsColors },
+  { name: "KungFuPanda", drawFunction: drawKungFuPandaColors },
+  { name: "Shinchan", drawFunction: drawShinchanColors }
+];
+let currentCharacterIndex = 0; // 当前角色
 
 function setup() {
   createCanvas(600, 800); 
@@ -15,6 +34,9 @@ function setup() {
   submitButton.position(440, 680); 
   submitButton.size(80, 30); 
   submitButton.mousePressed(checkAnswer); 
+
+  // 随机选择一个角色
+  nextCharacter();
 }
 
 function draw() {
@@ -26,6 +48,9 @@ function draw() {
   fill(255, 242, 204); 
   rect(60, 120, 480, 500, 20); 
   
+  // 绘制当前角色
+  characters[currentCharacterIndex].drawFunction();
+
   //人物
   // drawMickeyColors();
   // drawPatrickColors();
@@ -43,8 +68,9 @@ function draw() {
   // drawPompompurinColors();
   // drawMrKrabsColors();
   // drawKungFuPandaColors();
-  drawShinchanColors();
-  
+  // drawShinchanColors();
+
+
   // 答题
   stroke(0); 
   strokeWeight(5); 
@@ -61,9 +87,26 @@ function draw() {
   textAlign(CENTER, CENTER);
   text("Enter your answer below:", width / 2, 635); 
 
+  // Feedback
   fill(255,0,0);
   textSize(20); 
   text(feedback, width / 2, 730); 
+}
+
+// Randomly select the next character
+function nextCharacter() {
+  currentCharacterIndex = int(random(characters.length)); // 随机
+  feedback = "";
+}
+
+// Check answer correct
+function checkAnswer() {
+  let answer = userInput.value(); 
+  if (answer.toLowerCase() === correctAnswer.toLowerCase()) {
+    feedback = "Correct! Well done!";
+  } else {
+    feedback = "Wrong! Try again.";
+  }
 }
 
 // //1.米奇
@@ -355,31 +398,24 @@ function draw() {
 //   rect(210, 520, 190, 10, 0, 0, 10, 10);
 // }
 
-//17.蜡笔小新
-function drawShinchanColors() {
-  noStroke(); 
-  fill(0); // 黑
-  rect(200, 210, 200, 20, 10, 10, 0, 0); 
-  fill(255, 224, 189); // 肉
-  rect(200, 230, 200, 120); 
-  fill(255, 0, 0); // 红
-  rect(200, 340, 200, 90);
-  fill("#F6E550E2"); // 黄
-  rect(200, 430, 200, 50);
-  fill(255, 224, 189); // 肉
-  rect(200, 480, 200, 30); 
-  fill(255); // 白
-  rect(200, 510, 200, 20);
-  fill("#F8D658"); // 黄
-  rect(200, 530, 200, 15, 0, 0, 10, 10);
-}
+// //17.蜡笔小新
+// function drawShinchanColors() {
+//   noStroke(); 
+//   fill(0); // 黑
+//   rect(200, 210, 200, 20, 10, 10, 0, 0); 
+//   fill(255, 224, 189); // 肉
+//   rect(200, 230, 200, 120); 
+//   fill(255, 0, 0); // 红
+//   rect(200, 340, 200, 90);
+//   fill("#F6E550E2"); // 黄
+//   rect(200, 430, 200, 50);
+//   fill(255, 224, 189); // 肉
+//   rect(200, 480, 200, 30); 
+//   fill(255); // 白
+//   rect(200, 510, 200, 20);
+//   fill("#F8D658"); // 黄
+//   rect(200, 530, 200, 15, 0, 0, 10, 10);
+// }
 
-// 检查答案是否正确
-function checkAnswer() {
-  let answer = userInput.value(); 
-  if (answer.toLowerCase() === correctAnswer.toLowerCase()) {
-    feedback = "Correct! Well done!";
-  } else {
-    feedback = "Wrong! Try again.";
-  }
-}
+//18.樱桃小丸子
+
