@@ -1,30 +1,40 @@
 let userInput; 
 let feedback = "";
-let characters = [
-  { name: "Mickey", drawFunction: drawMickeyColors },
-  { name: "Patrick", drawFunction: drawPatrickColors },
-  { name: "Peppa", drawFunction: drawPeppaColors },
-  { name: "Squidward", drawFunction: drawSquidwardColors },
-  { name: "Garfield", drawFunction: drawGarfieldColors },
-  { name: "Loopy", drawFunction: drawLoppyColors },
-  { name: "Doraemon", drawFunction: drawDoraemonColors },
-  { name: "WinnieThePooh", drawFunction: drawWinnieThePoohColors },
-  { name: "Nick", drawFunction: drawNickColors },
-  { name: "Mario", drawFunction: drawMarioColors },
-  { name: "SpongeBob", drawFunction: drawSpongeBobColors },
-  { name: "PinkPanther", drawFunction: drawPinkPantherColors },
-  { name: "Nobita", drawFunction: drawNobitaColors },
-  { name: "Pompompurin", drawFunction: drawPompompurinColors },
-  { name: "MrKrabs", drawFunction: drawMrKrabsColors },
-  { name: "KungFuPanda", drawFunction: drawKungFuPandaColors },
-  { name: "Shinchan", drawFunction: drawShinchanColors }
-];
+let gameStarted = false; // 游戏开始
 let currentCharacterIndex = 0; // 当前角色
+let currentCharacters = []; // 当前难度
+let difficulty = ""; // 难度等级
+
+let easyCharacters = [
+  { name: "Mickey", drawFunction: drawMickeyColors },
+  { name: "Doraemon", drawFunction: drawDoraemonColors },
+  { name: "Patrick", drawFunction: drawPatrickColors },
+  { name: "WinnieThePooh", drawFunction: drawWinnieThePoohColors },
+  { name: "Loopy", drawFunction: drawLoppyColors },
+  { name: "Squidward", drawFunction: drawSquidwardColors }
+];
+
+let mediumCharacters = [
+  { name: "Peppa", drawFunction: drawPeppaColors },
+  { name: "Mario", drawFunction: drawMarioColors },
+  { name: "Nick", drawFunction: drawNickColors },
+  { name: "SpongeBob", drawFunction: drawSpongeBobColors },
+  { name: "Garfield", drawFunction: drawGarfieldColors }
+];
+
+let hardCharacters = [
+  { name: "KungFuPanda", drawFunction: drawKungFuPandaColors },
+  { name: "PinkPanther", drawFunction: drawPinkPantherColors },
+  { name: "MrKrabs", drawFunction: drawMrKrabsColors },
+  { name: "Shinchan", drawFunction: drawShinchanColors },
+  { name: "ChibiMaruko", drawFunction: drawChibiMarukoColors },
+  { name: "Pompompurin", drawFunction: drawPompompurinColors }
+];
 
 function setup() {
   createCanvas(600, 800); 
 
-  //添加三个按钮
+  //三个按钮
   let easyButton = createButton("Easy");
   easyButton.position(width / 2 - 120, height / 2);
   easyButton.size(100, 50);
@@ -49,42 +59,51 @@ function draw() {
     textSize(32);
     textAlign(CENTER, CENTER);
     text("Select Difficulty", width / 2, height / 2 - 50);
-} else {
+  } else {
   // 游戏主界面
     background(233, 185, 110); // 背景
-  //浅黄
-  stroke(0); 
-  strokeWeight(5);
-  fill(255, 242, 204); 
-  rect(60, 120, 480, 500, 20); 
-  // 绘制当前角色
-  characters[currentCharacterIndex].drawFunction();
+    //浅黄
+    stroke(0); 
+    strokeWeight(5);
+    fill(255, 242, 204); 
+    rect(60, 120, 480, 500, 20); 
+    // 绘制当前角色
+    characters[currentCharacterIndex].drawFunction();
 
-  // 答题
-  stroke(0); 
-  strokeWeight(5); 
-  fill(255, 242, 204);
-  rect(60, 650, 480, 100, 20); 
+    // 答题
+    stroke(0); 
+    strokeWeight(5); 
+    fill(255, 242, 204);
+    rect(60, 650, 480, 100, 20); 
 
-  fill(233, 185, 110); 
-  noStroke();
-  rect(100, 630, 400, 10); 
+    fill(233, 185, 110); 
+    noStroke();
+    rect(100, 630, 400, 10); 
 
-  fill(0); 
-  textSize(20); 
-  textStyle(BOLD); 
-  textAlign(CENTER, CENTER);
-  text("Enter your answer below:", width / 2, 635); 
+    fill(0); 
+    textSize(20); 
+    textStyle(BOLD); 
+    textAlign(CENTER, CENTER);
+    text("Enter your answer below:", width / 2, 635); 
 
-  // Feedback
-  fill(255,0,0);
-  textSize(20); 
-  text(feedback, width / 2, 730); 
+    // Feedback
+    fill(255,0,0);
+    textSize(20); 
+    text(feedback, width / 2, 730); 
+  }
 }
 
 function startGame(selectedDifficulty) {
-    gameStarted = true;
-    difficulty = selectedDifficulty;
+  gameStarted = true; 
+  difficulty = selectedDifficulty;
+
+  if (difficulty === "easy") {
+    currentCharacters = easyCharacters; 
+  } else if (difficulty === "medium") {
+    currentCharacters = mediumCharacters;
+  } else if (difficulty === "hard") {
+    currentCharacters = hardCharacters;
+  }
 
   // 输入框
   userInput = createInput();
@@ -103,13 +122,14 @@ function startGame(selectedDifficulty) {
 
 // Randomly select the next character
 function nextCharacter() {
-  currentCharacterIndex = int(random(characters.length)); // 随机
+  currentCharacterIndex = int(random(currentCharacters.length)); // 随机角色
   feedback = "";
 }
 
 // Check answer correct
 function checkAnswer() {
   let answer = userInput.value(); 
+  let correctAnswer = currentCharacters[currentCharacterIndex].name;
   if (answer.toLowerCase() === correctAnswer.toLowerCase()) {
     feedback = "Correct! Well done!";
   } else {
@@ -138,25 +158,25 @@ function checkAnswer() {
   // drawShinchanColors();
 
 
-// //1.米奇
-// function drawMickeyColors() {
-//   noStroke(); 
-//   fill(0); // 黑
-//   rect(200, 195, 200, 65, 10, 10, 0, 0); 
-//   fill(255, 224, 189); // 肉
-//   rect(200, 260, 200, 100); 
-//   fill(0); // 黑
-//   rect(200, 360, 200, 15); 
-//   fill(255, 0, 0); // 红
-//   rect(200, 375, 200, 90);
-//   fill(0); // 黑
-//   rect(200, 465, 200, 15); 
-//   fill(255, 215, 0); // 黄
-//   rect(200, 480, 200, 80, 0, 0, 20, 20);
-//   fill(255); // 白niukou
-//   rect(250, 397, 30, 30); // 左
-//   rect(320, 397, 30, 30); // 右
-// }
+//1.米奇
+function drawMickeyColors() {
+  noStroke(); 
+  fill(0); // 黑
+  rect(200, 195, 200, 65, 10, 10, 0, 0); 
+  fill(255, 224, 189); // 肉
+  rect(200, 260, 200, 100); 
+  fill(0); // 黑
+  rect(200, 360, 200, 15); 
+  fill(255, 0, 0); // 红
+  rect(200, 375, 200, 90);
+  fill(0); // 黑
+  rect(200, 465, 200, 15); 
+  fill(255, 215, 0); // 黄
+  rect(200, 480, 200, 80, 0, 0, 20, 20);
+  fill(255); // 白niukou
+  rect(250, 397, 30, 30); // 左
+  rect(320, 397, 30, 30); // 右
+}
 
 // //2.派大星
 // function drawPatrickColors() {
