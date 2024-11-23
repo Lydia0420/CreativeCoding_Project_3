@@ -41,7 +41,8 @@ function draw() {
   // drawPinkPantherColors();
   // drawNobitaColors();
   //  drawPompompurinColors();
-  drawMrKrabsColors();
+  // drawMrKrabsColors();
+   drawKungFuPandaColors();
 
   // 答题
   stroke(0); 
@@ -304,19 +305,53 @@ function draw() {
 //   endShape();
 // }
 
-//15.蟹老板
-function drawMrKrabsColors() {
+// //15.蟹老板
+// function drawMrKrabsColors() {
+//   noStroke(); 
+//   fill("#AFF29B")
+//   rect(200, 250, 200, 100, 10, 10, 0, 0);
+//   fill("#F22E3E"); // 红
+//   rect(200, 350, 200, 50); 
+//   fill("#ACDEF6"); // 蓝
+//   rect(200, 400, 200, 40); 
+//   fill("#778DCF"); // 紫
+//   rect(200, 440, 200, 60); 
+//   fill("#F22E3E"); // 红
+//   rect(200, 500, 200, 12, 0, 0, 10, 10); 
+// }
+
+//16.功夫熊猫
+function drawKungFuPandaColors() {
   noStroke(); 
-  fill("#AFF29B")
-  rect(200, 250, 200, 100, 10, 10, 0, 0);
-  fill("#F22E3E"); // 红
-  rect(200, 350, 200, 50); 
-  fill("#ACDEF6"); // 蓝
-  rect(200, 400, 200, 40); 
-  fill("#778DCF"); // 紫
-  rect(200, 440, 200, 60); 
-  fill("#F22E3E"); // 红
-  rect(200, 500, 200, 12, 0, 0, 10, 10); 
+  fill(0); // 黑
+  rect(210, 195, 190, 20, 10, 10, 0, 0); 
+  fill(255); // 脸
+  rect(210, 215, 190, 80); 
+  fill(0); // 黑
+  rect(210, 295, 190, 30);
+  fill(255); // 身子
+  rect(210, 325, 190, 80); 
+  fill("#ECD045"); // 腰带
+  rect(210, 405, 20, 15); 
+  rect(245, 405, 20, 15); 
+  rect(280, 405, 20, 15); 
+  rect(315, 405, 20, 15);
+  rect(350, 405, 20, 15);
+  rect(385, 405, 15, 15);
+  fill("#E66F3E"); // 腰带
+  rect(230, 405, 15, 15); 
+  rect(265, 405, 15, 15); 
+  rect(300, 405, 15, 15); 
+  rect(335, 405, 15, 15); 
+  rect(370, 405, 15, 15); 
+  fill("#A66933"); // 裤
+  rect(210, 420, 190, 50);
+  fill(0); // 黑
+  rect(210, 470, 190, 30);
+  fill("#B8A276"); // 腿套
+  rect(210, 500, 190, 20);
+  fill("#A66933"); // 裤
+  rect(210, 520, 190, 10, 0, 0, 10, 10);
 }
 
 // 检查答案是否正确
