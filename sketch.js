@@ -1,3 +1,4 @@
+let hintsLeft = 3; // 提示次数
 let score = 0;
 let timeLeft = 60; // 初始时间
 const maxTime = 60;
@@ -100,10 +101,16 @@ function draw() {
     textSize(20); 
     text(feedback, width / 2, 730); 
 
-    //Score
+    // Score 
     fill(0);
     textSize(20);
     text(`Score: ${score}`, width - 100, 50); 
+
+    // Hints
+    fill(0);
+    textSize(20);
+    textAlign(LEFT, CENTER);
+    text(`Hints Left: ${hintsLeft}`, 310, 775); 
   }
 }
 
@@ -144,11 +151,34 @@ function startGame(selectedDifficulty) {
   backButton.size(80, 30);
   backButton.mousePressed(goBack);
 
+  // 提示按钮
+  let hintButton = createButton("Hint"); 
+  hintButton.position(440, 760); 
+  hintButton.size(80, 30); 
+  hintButton.mousePressed(showHint);
+
   //倒计时
   startTimer();
 
   // 随机选择一个角色
   nextCharacter();
+}
+
+function showHint() {
+  if (hintsLeft > 0) {
+    hintsLeft--;
+    // 获取角色名
+    let currentName = currentCharacters[currentCharacterIndex].name;
+
+    // 生成提示：
+    let hint = currentName.split("").map((char, index) => {
+      return (index === 0 || index === currentName.length - 1) ? char : "*";
+    }).join("");
+
+    feedback = `Hint: ${hint}`;
+  } else {
+    feedback = "No hints left!";
+  }
 }
 
 function goBack() {
