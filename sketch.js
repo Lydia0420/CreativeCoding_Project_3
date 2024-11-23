@@ -37,7 +37,8 @@ function draw() {
   // drawWinnieThePoohColors();
   // drawNickColors();
   // drawMarioColors();
-  drawSpongeBobColors();
+  // drawSpongeBobColors();
+    drawPinkPantherColors();
 
   // 答题
   stroke(0); 
@@ -210,33 +211,44 @@ function draw() {
 //   rect(200, 490, 200, 50, 0, 0, 10, 10);
 // }
 
-//11.海绵宝宝
-function drawSpongeBobColors() {
-  noStroke(); 
-  fill("#FFEB3B"); // 黄
-  rect(200, 250, 200, 160, 10, 10, 0, 0);
-  fill(255); // 白
-  rect(200, 410, 200, 20); 
-  fill(255, 0, 0); // 红
-  triangle(290, 410, 310, 410, 300, 430);
-  fill(139, 69, 19); //棕
-  rect(200, 430, 200, 30); 
-  fill("#FFEB3B"); // 黄
-  rect(200, 460, 200, 20);
-  fill(0); // 黑
-  rect(200, 480, 200, 2);
-  fill(255); // 白
-  rect(200, 482, 200, 3);
-  fill("#0CC8F2"); // 蓝
-  rect(200, 485, 200, 2);
-  fill(255); // 白
-  rect(200, 487, 200, 3);
-  fill(255, 0, 0); // 红
-  rect(200, 490, 200, 2);
-  fill(255); // 白
-  rect(200, 492, 200, 8);
-  fill(0); // 黑色
-  rect(200, 500, 200, 20, 0, 0, 10, 10);
+// //11.海绵宝宝
+// function drawSpongeBobColors() {
+//   noStroke(); 
+//   fill("#FFEB3B"); // 黄
+//   rect(200, 250, 200, 160, 10, 10, 0, 0);
+//   fill(255); // 白
+//   rect(200, 410, 200, 20); 
+//   fill(255, 0, 0); // 红
+//   triangle(290, 410, 310, 410, 300, 430);
+//   fill(139, 69, 19); //棕
+//   rect(200, 430, 200, 30); 
+//   fill("#FFEB3B"); // 黄
+//   rect(200, 460, 200, 20);
+//   fill(0); // 黑
+//   rect(200, 480, 200, 2);
+//   fill(255); // 白
+//   rect(200, 482, 200, 3);
+//   fill("#0CC8F2"); // 蓝
+//   rect(200, 485, 200, 2);
+//   fill(255); // 白
+//   rect(200, 487, 200, 3);
+//   fill(255, 0, 0); // 红
+//   rect(200, 490, 200, 2);
+//   fill(255); // 白
+//   rect(200, 492, 200, 8);
+//   fill(0); // 黑色
+//   rect(200, 500, 200, 20, 0, 0, 10, 10);
+// }
+
+//12.粉红豹
+function drawPinkPantherColors() {
+  noStroke();
+  fill("#F299CA"); // 粉
+  rect(200, 195, 200, 360, 10); 
+  fill("#F9EAF2"); // 白
+  rect(200, 230, 200, 40); 
+  fill("#F9EAF2"); // 白
+  rect(200, 286, 200, 120); 
 }
 
 // 检查答案是否正确
