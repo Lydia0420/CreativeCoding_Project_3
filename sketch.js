@@ -30,7 +30,8 @@ function draw() {
   // drawMickeyColors();
   // drawPatrickColors();
   // drawPeppaColors();
-  drawSquidwardColors();
+  // drawSquidwardColors();
+    drawGarfieldColors();
 
 
   // 答题
@@ -94,13 +95,43 @@ function draw() {
 //   rect(190, 580, 220, 15, 0, 0, 10, 10); 
 // }
 
-//4.章鱼哥
-function drawSquidwardColors() {
+// //4.章鱼哥
+// function drawSquidwardColors() {
+//   noStroke(); 
+//   fill("#ADD1C5"); // 蓝
+//   rect(210, 195, 180, 370, 10); 
+//   fill("#DB8E18"); // 黄
+//   rect(210, 330, 180, 80);
+// }
+
+//5.加菲猫 
+function drawGarfieldColors() {
   noStroke(); 
-  fill("#ADD1C5"); // 蓝
-  rect(210, 195, 180, 370, 10); 
-  fill("#DB8E18"); // 黄
-  rect(210, 330, 180, 80);
+  fill(255, 165, 0); // 橙
+  rect(190, 200, 220, 340, 10); 
+  fill("#FFFA6C"); // 浅黄
+  ellipse(245, 290, 15, 15); // 左
+  ellipse(355, 290, 15, 15); // 右
+    // 左半
+    beginShape();
+    vertex(300, 295); 
+    quadraticVertex(275, 320, 245, 282); 
+    quadraticVertex(250, 340, 300, 310, 300, 300); 
+    endShape(CLOSE); 
+    // 右半
+    beginShape();
+    vertex(300, 295); 
+    quadraticVertex(330, 320, 355, 282); 
+    quadraticVertex(355, 340, 300, 310, 300, 300); 
+    endShape(CLOSE); 
+  fill("#F6B1CD") //鼻子
+  ellipse(300, 300, 20, 13);
+  fill(0); // 黑色
+  rect(190, 350, 220, 10); 
+  rect(190, 370, 220, 12); 
+  rect(190, 390, 220, 15); 
+  // rect(190, 340, 220, 25); 
+  // rect(190, 380, 220, 30); 
 }
 
 // 检查答案是否正确
