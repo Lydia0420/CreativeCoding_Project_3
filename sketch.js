@@ -24,52 +24,41 @@ let currentCharacterIndex = 0; // 当前角色
 function setup() {
   createCanvas(600, 800); 
 
-  // 输入框
-  userInput = createInput();
-  userInput.position(180, 680); 
-  userInput.size(240, 30); 
+  //添加三个按钮
+  let easyButton = createButton("Easy");
+  easyButton.position(width / 2 - 120, height / 2);
+  easyButton.size(100, 50);
+  easyButton.mousePressed(() => startGame("easy"));
 
-  // 提交
-  let submitButton = createButton("Submit");
-  submitButton.position(440, 680); 
-  submitButton.size(80, 30); 
-  submitButton.mousePressed(checkAnswer); 
+  let mediumButton = createButton("Medium");
+  mediumButton.position(width / 2 - 50, height / 2);
+  mediumButton.size(100, 50);
+  mediumButton.mousePressed(() => startGame("medium"));
 
-  // 随机选择一个角色
-  nextCharacter();
+  let hardButton = createButton("Hard");
+  hardButton.position(width / 2 + 20, height / 2);
+  hardButton.size(100, 50);
+  hardButton.mousePressed(() => startGame("hard"));
 }
 
 function draw() {
-  background(233, 185, 110); // 背景
-
+   if (!gameStarted) {
+    //初始界面
+    background(233, 185, 110); // 背景
+    fill(255);
+    textSize(32);
+    textAlign(CENTER, CENTER);
+    text("Select Difficulty", width / 2, height / 2 - 50);
+} else {
+  // 游戏主界面
+    background(233, 185, 110); // 背景
   //浅黄
   stroke(0); 
   strokeWeight(5);
   fill(255, 242, 204); 
   rect(60, 120, 480, 500, 20); 
-  
   // 绘制当前角色
   characters[currentCharacterIndex].drawFunction();
-
-  //人物
-  // drawMickeyColors();
-  // drawPatrickColors();
-  // drawPeppaColors();
-  // drawSquidwardColors();
-  // drawGarfieldColors();
-  // drawLoopyColors();
-  // drawDoraemonColors();
-  // drawWinnieThePoohColors();
-  // drawNickColors();
-  // drawMarioColors();
-  // drawSpongeBobColors();
-  // drawPinkPantherColors();
-  // drawNobitaColors();
-  // drawPompompurinColors();
-  // drawMrKrabsColors();
-  // drawKungFuPandaColors();
-  // drawShinchanColors();
-
 
   // 答题
   stroke(0); 
@@ -93,6 +82,25 @@ function draw() {
   text(feedback, width / 2, 730); 
 }
 
+function startGame(selectedDifficulty) {
+    gameStarted = true;
+    difficulty = selectedDifficulty;
+
+  // 输入框
+  userInput = createInput();
+  userInput.position(180, 680); 
+  userInput.size(240, 30); 
+
+  // 提交
+  let submitButton = createButton("Submit");
+  submitButton.position(440, 680); 
+  submitButton.size(80, 30); 
+  submitButton.mousePressed(checkAnswer); 
+
+  // 随机选择一个角色
+  nextCharacter();
+}
+
 // Randomly select the next character
 function nextCharacter() {
   currentCharacterIndex = int(random(characters.length)); // 随机
@@ -107,7 +115,28 @@ function checkAnswer() {
   } else {
     feedback = "Wrong! Try again.";
   }
+  userInput.value("");
 }
+
+  //人物
+  // drawMickeyColors();
+  // drawPatrickColors();
+  // drawPeppaColors();
+  // drawSquidwardColors();
+  // drawGarfieldColors();
+  // drawLoopyColors();
+  // drawDoraemonColors();
+  // drawWinnieThePoohColors();
+  // drawNickColors();
+  // drawMarioColors();
+  // drawSpongeBobColors();
+  // drawPinkPantherColors();
+  // drawNobitaColors();
+  // drawPompompurinColors();
+  // drawMrKrabsColors();
+  // drawKungFuPandaColors();
+  // drawShinchanColors();
+
 
 // //1.米奇
 // function drawMickeyColors() {
