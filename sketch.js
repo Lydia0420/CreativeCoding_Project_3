@@ -40,7 +40,8 @@ function draw() {
   // drawSpongeBobColors();
   // drawPinkPantherColors();
   // drawNobitaColors();
-   drawPompompurinColors();
+  //  drawPompompurinColors();
+  drawMrKrabsColors();
 
   // 答题
   stroke(0); 
@@ -272,35 +273,50 @@ function draw() {
 //   rect(200, 545, 200, 30, 0, 0, 10, 10); 
 // }
 
-//14.布丁狗
-function drawPompompurinColors() {
-  noStroke(); 
-   fill("#76332E"); // 棕
-  rect(200, 270, 200, 30, 10, 10, 0, 0);
-  fill("#F5E79C"); // 黄
-  rect(200, 300, 200, 200, 0, 0, 10, 10);
-  fill("#76332E"); //鼻子
-  triangle(292, 340, 308, 340, 300, 352);
+// //14.布丁狗
+// function drawPompompurinColors() {
+//   noStroke(); 
+//    fill("#76332E"); // 棕
+//   rect(200, 270, 200, 30, 10, 10, 0, 0);
+//   fill("#F5E79C"); // 黄
+//   rect(200, 300, 200, 200, 0, 0, 10, 10);
+//   fill("#76332E"); //鼻子
+//   triangle(292, 340, 308, 340, 300, 352);
 
-  fill("#76332E"); 
-  ellipse(250, 340, 10, 10); // 左眼
-  ellipse(350, 340, 10, 10); // 右眼
+//   fill("#76332E"); 
+//   ellipse(250, 340, 10, 10); // 左眼
+//   ellipse(350, 340, 10, 10); // 右眼
 
-  noFill(); //左胡须
-  stroke("#76332E"); 
-  strokeWeight(3);
-  beginShape();
-  vertex(280,350);
-  quadraticVertex(285, 370, 302, 345); 
-  endShape();
+//   noFill(); //左胡须
+//   stroke("#76332E"); 
+//   strokeWeight(3);
+//   beginShape();
+//   vertex(280,350);
+//   quadraticVertex(285, 370, 302, 345); 
+//   endShape();
   
-  noFill(); //右胡须
-  stroke("#76332E"); 
-  strokeWeight(3);
-  beginShape();
-  vertex(320, 350); 
-  quadraticVertex(310, 370, 298, 345); 
-  endShape();
+//   noFill(); //右胡须
+//   stroke("#76332E"); 
+//   strokeWeight(3);
+//   beginShape();
+//   vertex(320, 350); 
+//   quadraticVertex(310, 370, 298, 345); 
+//   endShape();
+// }
+
+//15.蟹老板
+function drawMrKrabsColors() {
+  noStroke(); 
+  fill("#AFF29B")
+  rect(200, 250, 200, 100, 10, 10, 0, 0);
+  fill("#F22E3E"); // 红
+  rect(200, 350, 200, 50); 
+  fill("#ACDEF6"); // 蓝
+  rect(200, 400, 200, 40); 
+  fill("#778DCF"); // 紫
+  rect(200, 440, 200, 60); 
+  fill("#F22E3E"); // 红
+  rect(200, 500, 200, 12, 0, 0, 10, 10); 
 }
 
 // 检查答案是否正确
