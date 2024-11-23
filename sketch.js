@@ -1,4 +1,5 @@
 let score = 0;
+let timeLeft = 0; // 初始时间
 let userInput; 
 let feedback = "";
 let gameStarted = false; // 游戏开始
@@ -108,10 +109,13 @@ function startGame(selectedDifficulty) {
 
   if (difficulty === "easy") {
     currentCharacters = easyCharacters; 
+    timeLeft = 10;
   } else if (difficulty === "medium") {
     currentCharacters = mediumCharacters;
+    timeLeft = 10;
   } else if (difficulty === "hard") {
     currentCharacters = hardCharacters;
+    timeLeft = 15
   }
 
   // 隐藏按钮 
@@ -136,22 +140,41 @@ function startGame(selectedDifficulty) {
   backButton.size(80, 30);
   backButton.mousePressed(goBack);
 
+  //倒计时
+  startTimer();
+
   // 随机选择一个角色
   nextCharacter();
 }
 
 function goBack() {
   gameStarted = false;
+  score = 0;
+  timeLeft = 0
   userInput.remove();
   submitButton.remove();
   backButton.remove();
   setup();
 }
 
+function startTimer(){
+  let timer = setInterva(() => {
+    if (timeLeft > 0 && gameStarted) {
+      timeLeft--;
+    } else{
+      clearInterval(timer);
+      if (timeLeft === 0) {
+        feedback = "Time's up! Try again.";
+      }
+    }
+  }, 1000); //每秒减1
+}
+
 // Randomly select the next character
 function nextCharacter() {
   currentCharacterIndex = int(random(currentCharacters.length)); // 随机角色
   feedback = "";
+  if (difficulty !== "easy") timeLeft = difficulty === "medium" ? 10 : 15; // 重置倒计时
 }
 
 // Check answer correct
