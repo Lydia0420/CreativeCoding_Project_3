@@ -31,7 +31,8 @@ function draw() {
   // drawPatrickColors();
   // drawPeppaColors();
   // drawSquidwardColors();
-    drawGarfieldColors();
+  // drawGarfieldColors();
+    drawLoopyColors();
 
 
   // 答题
@@ -104,35 +105,56 @@ function draw() {
 //   rect(210, 330, 180, 80);
 // }
 
-//5.加菲猫 
-function drawGarfieldColors() {
+// //5.加菲猫 
+// function drawGarfieldColors() {
+//   noStroke(); 
+//   fill(255, 165, 0); // 橙
+//   rect(190, 200, 220, 340, 10); 
+//   fill("#FFFA6C"); // 浅黄
+//   ellipse(245, 290, 15, 15); // 左
+//   ellipse(355, 290, 15, 15); // 右
+//     // 左半
+//     beginShape();
+//     vertex(300, 295); 
+//     quadraticVertex(275, 320, 245, 282); 
+//     quadraticVertex(250, 340, 300, 310, 300, 300); 
+//     endShape(CLOSE); 
+//     // 右半
+//     beginShape();
+//     vertex(300, 295); 
+//     quadraticVertex(330, 320, 355, 282); 
+//     quadraticVertex(355, 340, 300, 310, 300, 300); 
+//     endShape(CLOSE); 
+//   fill("#F6B1CD") //鼻子
+//   ellipse(300, 300, 20, 13);
+//   fill(0); // 黑色
+//   rect(190, 350, 220, 10); 
+//   rect(190, 370, 220, 12); 
+//   rect(190, 390, 220, 15); 
+//   // rect(190, 340, 220, 25); 
+//   // rect(190, 380, 220, 30); 
+// }
+
+//6.Loopy
+function drawLoppyColors() {
   noStroke(); 
-  fill(255, 165, 0); // 橙
-  rect(190, 200, 220, 340, 10); 
-  fill("#FFFA6C"); // 浅黄
-  ellipse(245, 290, 15, 15); // 左
-  ellipse(355, 290, 15, 15); // 右
-    // 左半
-    beginShape();
-    vertex(300, 295); 
-    quadraticVertex(275, 320, 245, 282); 
-    quadraticVertex(250, 340, 300, 310, 300, 300); 
-    endShape(CLOSE); 
-    // 右半
-    beginShape();
-    vertex(300, 295); 
-    quadraticVertex(330, 320, 355, 282); 
-    quadraticVertex(355, 340, 300, 310, 300, 300); 
-    endShape(CLOSE); 
-  fill("#F6B1CD") //鼻子
-  ellipse(300, 300, 20, 13);
-  fill(0); // 黑色
-  rect(190, 350, 220, 10); 
-  rect(190, 370, 220, 12); 
-  rect(190, 390, 220, 15); 
-  // rect(190, 340, 220, 25); 
-  // rect(190, 380, 220, 30); 
+  fill(255, 187, 190); // 粉色
+  rect(200, 195, 200, 360, 10, 10, 0, 0); 
+  fill("#4D0519"); // 深红
+  rect(200, 550, 200, 15, 0, 0, 10, 10); 
+  fill("#EFEFEF"); // 白
+  rect(240, 450, 120, 100); 
+  fill("#4D0519");//嘴
+  rect(275, 350, 50, 15);
+  fill(250);//牙
+  rect(285, 350, 30, 11, 0, 0, 10, 10);
 }
+
+//   fill(173, 216, 230); // 蓝
+//   rect(200, 195, 200, 370, 10); 
+//   fill(120, 100, 0); // 绿
+//   rect(200, 330, 200, 80);
+// }
 
 // 检查答案是否正确
 function checkAnswer() {
