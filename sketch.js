@@ -33,8 +33,8 @@ function draw() {
   // drawSquidwardColors();
   // drawGarfieldColors();
   // drawLoopyColors();
-      drawDoraemonColors();
-
+  // drawDoraemonColors();
+  drawWinnieThePoohColors();
 
   // 答题
   stroke(0); 
@@ -151,20 +151,29 @@ function draw() {
 //   rect(285, 350, 30, 11, 0, 0, 10, 10);
 // }
 
-//7.哆啦A梦
-function drawDoraemonColors() {
+// // 7.哆啦A梦
+// function drawDoraemonColors() {
+//   noStroke(); 
+//   fill("#00A0E9")//蓝
+//   // fill(0, 191, 255); 
+//   rect(180, 220, 240, 300, 10, 10, 0, 0);
+//   fill(255); // 白
+//   rect(180, 520, 240, 30, 0, 0, 10, 10);
+//   fill(255); // 口袋
+//   rect(210, 400, 180, 90, 0, 0, 10, 10); 
+//   fill(255, 0, 0); // 红
+//   rect(180, 400, 240, 13); 
+//   fill(255, 215, 0); // 黄
+//   ellipse(300, 420, 30, 30); 
+// }
+
+//8.小熊维尼
+function drawWinnieThePoohColors() {
   noStroke(); 
-  fill("#00A0E9")//蓝
-  // fill(0, 191, 255); 
-  rect(180, 220, 240, 300, 10, 10, 0, 0);
-  fill(255); // 白
-  rect(180, 520, 240, 30, 0, 0, 10, 10);
-  fill(255); // 口袋
-  rect(210, 400, 180, 90, 0, 0, 10, 10); 
-  fill(255, 0, 0); // 红
-  rect(180, 400, 240, 13); 
-  fill(255, 215, 0); // 黄
-  ellipse(300, 420, 30, 30); 
+  fill("#FFC758"); // 黄
+  rect(200, 195, 200, 360, 10); 
+  fill("#C92A2E"); // 红
+  rect(200, 300, 200, 100); 
 }
 
 // 检查答案是否正确
