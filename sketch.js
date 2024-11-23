@@ -150,10 +150,12 @@ function nextCharacter() {
 // Check answer correct
 function checkAnswer() {
   let answer = userInput.value(); 
-  let correctAnswer = currentCharacters[currentCharacterIndex].name;
-  if (answer.toLowerCase() === correctAnswer.toLowerCase()) {
+  let correctAnswer = currentCharacters[currentCharacterIndex].name.toLowerCase();
+  if (answer.toLowerCase() === correctAnswer) {
     feedback = "Correct! Well done!";
-    nextCharacter(); // 切换到下一个角色
+    setTimeout(() => {
+      nextCharacter(); // 延迟切换
+    }, 1000); // 延迟1秒
   } else {
     feedback = "Wrong! Try again.";
   }
