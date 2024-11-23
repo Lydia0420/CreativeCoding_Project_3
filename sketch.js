@@ -35,7 +35,8 @@ function draw() {
   // drawLoopyColors();
   // drawDoraemonColors();
   // drawWinnieThePoohColors();
-  drawNickColors();
+  // drawNickColors();
+  drawMarioColors();
 
   // 答题
   stroke(0); 
@@ -177,15 +178,35 @@ function draw() {
 //   rect(200, 300, 200, 100); 
 // }
 
-//9.尼克
-function drawNickColors() {
+// //9.尼克
+// function drawNickColors() {
+//   noStroke(); 
+//   fill("#eb8349"); // 橙
+//   rect(200, 160, 200, 420, 10); 
+//   fill("#83cf69"); // 绿
+//   rect(200, 280, 200, 185); 
+//   fill("#6D5649")
+//   rect(200, 465, 200, 90); 
+// }
+
+//10.超级玛丽
+function drawMarioColors() {
   noStroke(); 
-  fill("#eb8349"); // 橙
-  rect(200, 160, 200, 420, 10); 
-  fill("#83cf69"); // 绿
-  rect(200, 280, 200, 185); 
-  fill("#6D5649")
-  rect(200, 465, 200, 90); 
+  fill("#F20530"); // 红
+  rect(200, 195, 200, 60, 10, 10, 0, 0);
+  fill("#FDCAA1"); // 脸
+  rect(200, 255, 200, 90); 
+  fill("#F20530"); // 红衣服
+  rect(200, 345, 200, 60);
+  fill("#0455BF"); // 蓝
+  rect(200, 380, 200, 110, 0, 0, 0, 0);
+  rect(250, 345, 25, 100, 0, 0, 0, 0);//左
+  rect(330, 345, 25, 100, 0, 0, 0, 0);//右
+  fill(255, 223, 0); // 黄
+  ellipse(260, 400, 20, 20); 
+  ellipse(345, 400, 20, 20); 
+  fill(139, 69, 19); // 棕
+  rect(200, 490, 200, 50, 0, 0, 10, 10);
 }
 
 // 检查答案是否正确
