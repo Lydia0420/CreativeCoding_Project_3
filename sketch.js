@@ -1,3 +1,4 @@
+let score = 0;
 let userInput; 
 let feedback = "";
 let gameStarted = false; // 游戏开始
@@ -92,6 +93,12 @@ function draw() {
     fill(255,0,0);
     textSize(20); 
     text(feedback, width / 2, 730); 
+
+    //Score
+    fill(0);
+    textSize(20);
+    text(`Score: ${score}`, width - 100, 50); 
+
   }
 }
 
@@ -153,6 +160,7 @@ function checkAnswer() {
   let correctAnswer = currentCharacters[currentCharacterIndex].name.toLowerCase();
   if (answer.toLowerCase() === correctAnswer) {
     feedback = "Correct! Well done!";
+    score++;
     setTimeout(() => {
       nextCharacter(); // 延迟切换
     }, 1000); // 延迟1秒
