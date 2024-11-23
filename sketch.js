@@ -39,7 +39,8 @@ function draw() {
   // drawMarioColors();
   // drawSpongeBobColors();
   // drawPinkPantherColors();
-  drawNobitaColors();
+  // drawNobitaColors();
+   drawPompompurinColors();
 
   // 答题
   stroke(0); 
@@ -252,23 +253,54 @@ function draw() {
 //   rect(200, 286, 200, 120); 
 // }
 
-//13.大雄
-function drawNobitaColors() {
-  noStroke();
-  fill(0); // 黑
-  rect(200, 170, 200, 40, 10, 10, 0, 0); 
-  fill("#FADDC5"); //脸
-  rect(200, 210, 200, 95);
-  fill("#FFD408"); // 黄
-  rect(200, 305, 200, 90); 
-  fill("#3F598C"); // 蓝
-  rect(200, 390, 200, 80); 
-  fill("#FADDC5"); //腿
-  rect(200, 450, 200, 90);
-  fill("#E1FBEC"); // 淡蓝
-  rect(200, 520, 200, 25); 
-  fill("#71C6D9"); // 蓝
-  rect(200, 545, 200, 30, 0, 0, 10, 10); 
+// //13.大雄
+// function drawNobitaColors() {
+//   noStroke();
+//   fill(0); // 黑
+//   rect(200, 170, 200, 40, 10, 10, 0, 0); 
+//   fill("#FADDC5"); //脸
+//   rect(200, 210, 200, 95);
+//   fill("#FFD408"); // 黄
+//   rect(200, 305, 200, 90); 
+//   fill("#3F598C"); // 蓝
+//   rect(200, 390, 200, 80); 
+//   fill("#FADDC5"); //腿
+//   rect(200, 450, 200, 90);
+//   fill("#E1FBEC"); // 淡蓝
+//   rect(200, 520, 200, 25); 
+//   fill("#71C6D9"); // 蓝
+//   rect(200, 545, 200, 30, 0, 0, 10, 10); 
+// }
+
+//14.布丁狗
+function drawPompompurinColors() {
+  noStroke(); 
+   fill("#76332E"); // 棕
+  rect(200, 270, 200, 30, 10, 10, 0, 0);
+  fill("#F5E79C"); // 黄
+  rect(200, 300, 200, 200, 0, 0, 10, 10);
+  fill("#76332E"); //鼻子
+  triangle(292, 340, 308, 340, 300, 352);
+
+  fill("#76332E"); 
+  ellipse(250, 340, 10, 10); // 左眼
+  ellipse(350, 340, 10, 10); // 右眼
+
+  noFill(); //左胡须
+  stroke("#76332E"); 
+  strokeWeight(3);
+  beginShape();
+  vertex(280,350);
+  quadraticVertex(285, 370, 302, 345); 
+  endShape();
+  
+  noFill(); //右胡须
+  stroke("#76332E"); 
+  strokeWeight(3);
+  beginShape();
+  vertex(320, 350); 
+  quadraticVertex(310, 370, 298, 345); 
+  endShape();
 }
 
 // 检查答案是否正确
