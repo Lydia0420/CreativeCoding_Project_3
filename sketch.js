@@ -34,7 +34,8 @@ function draw() {
   // drawGarfieldColors();
   // drawLoopyColors();
   // drawDoraemonColors();
-  drawWinnieThePoohColors();
+  // drawWinnieThePoohColors();
+  drawNickColors();
 
   // 答题
   stroke(0); 
@@ -167,13 +168,24 @@ function draw() {
 //   ellipse(300, 420, 30, 30); 
 // }
 
-//8.小熊维尼
-function drawWinnieThePoohColors() {
+// //8.小熊维尼
+// function drawWinnieThePoohColors() {
+//   noStroke(); 
+//   fill("#FFC758"); // 黄
+//   rect(200, 195, 200, 360, 10); 
+//   fill("#C92A2E"); // 红
+//   rect(200, 300, 200, 100); 
+// }
+
+//9.尼克
+function drawNickColors() {
   noStroke(); 
-  fill("#FFC758"); // 黄
-  rect(200, 195, 200, 360, 10); 
-  fill("#C92A2E"); // 红
-  rect(200, 300, 200, 100); 
+  fill("#eb8349"); // 橙
+  rect(200, 160, 200, 420, 10); 
+  fill("#83cf69"); // 绿
+  rect(200, 280, 200, 185); 
+  fill("#6D5649")
+  rect(200, 465, 200, 90); 
 }
 
 // 检查答案是否正确
