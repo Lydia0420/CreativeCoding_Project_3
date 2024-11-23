@@ -29,7 +29,8 @@ function draw() {
   //人物
   // drawMickeyColors();
   // drawPatrickColors();
-    drawPeppaColors();
+  // drawPeppaColors();
+  drawSquidwardColors();
 
 
   // 答题
@@ -82,15 +83,24 @@ function draw() {
 //   rect(200, 450, 200, 85); 
 // }
 
-//3.小猪佩奇
-function drawPeppaColors() {
+// //3.小猪佩奇
+// function drawPeppaColors() {
+//   noStroke(); 
+//   fill("#FFBDDB"); // 粉
+//   rect(190, 160, 220, 420, 10, 10, 0, 0); 
+//   fill("#FF2314"); // 红
+//   rect(190, 380, 220, 150); 
+//   fill(0); // 黑
+//   rect(190, 580, 220, 15, 0, 0, 10, 10); 
+// }
+
+//4.章鱼哥
+function drawSquidwardColors() {
   noStroke(); 
-  fill("#FFBDDB"); // 粉
-  rect(190, 160, 220, 420, 10, 10, 0, 0); 
-  fill("#FF2314"); // 红
-  rect(190, 380, 220, 150); 
-  fill(0); // 黑
-  rect(190, 580, 220, 15, 0, 0, 10, 10); 
+  fill("#ADD1C5"); // 蓝
+  rect(210, 195, 180, 370, 10); 
+  fill("#DB8E18"); // 黄
+  rect(210, 330, 180, 80);
 }
 
 // 检查答案是否正确
