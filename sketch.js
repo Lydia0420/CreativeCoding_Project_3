@@ -1,5 +1,6 @@
 let score = 0;
-let timeLeft = 0; // 初始时间
+let timeLeft = 60; // 初始时间
+const maxTime = 60;
 let userInput; 
 let feedback = "";
 let gameStarted = false; // 游戏开始
@@ -71,6 +72,10 @@ function draw() {
     strokeWeight(5);
     fill(255, 242, 204); 
     rect(60, 120, 480, 500, 20); 
+
+    // 生命条
+    drawHealthBar();
+
     // 绘制当前角色
     currentCharacters[currentCharacterIndex].drawFunction();
 
@@ -99,7 +104,6 @@ function draw() {
     fill(0);
     textSize(20);
     text(`Score: ${score}`, width - 100, 50); 
-
   }
 }
 
@@ -109,14 +113,14 @@ function startGame(selectedDifficulty) {
 
   if (difficulty === "easy") {
     currentCharacters = easyCharacters; 
-    timeLeft = 10;
   } else if (difficulty === "medium") {
     currentCharacters = mediumCharacters;
-    timeLeft = 10;
   } else if (difficulty === "hard") {
     currentCharacters = hardCharacters;
-    timeLeft = 15
   }
+
+  // 初始化时间
+  timeLeft = maxTime;
 
   // 隐藏按钮 
   easyButton.remove();
@@ -149,8 +153,9 @@ function startGame(selectedDifficulty) {
 
 function goBack() {
   gameStarted = false;
+  clearInterval(timer);
   score = 0;
-  timeLeft = 0
+  timeLeft = maxTime;
   userInput.remove();
   submitButton.remove();
   backButton.remove();
@@ -158,23 +163,33 @@ function goBack() {
 }
 
 function startTimer(){
-  let timer = setInterva(() => {
+  timer = setInterval(() => {
     if (timeLeft > 0 && gameStarted) {
       timeLeft--;
     } else{
       clearInterval(timer);
       if (timeLeft === 0) {
-        feedback = "Time's up! Try again.";
+        feedback = `Game Over! Your final score: ${score}`;
+        gameOver();
       }
     }
   }, 1000); //每秒减1
+}
+
+function drawHealthBar(){
+  fill(200);
+  rect(60, 80, 480, 20);
+
+ // 动态生命条
+  fill(255, 0, 0);
+  let barWidth = map(timeLeft, 0, maxTime, 0, 480);
+  rect(60, 80, barWidth, 20);
 }
 
 // Randomly select the next character
 function nextCharacter() {
   currentCharacterIndex = int(random(currentCharacters.length)); // 随机角色
   feedback = "";
-  if (difficulty !== "easy") timeLeft = difficulty === "medium" ? 10 : 15; // 重置倒计时
 }
 
 // Check answer correct
