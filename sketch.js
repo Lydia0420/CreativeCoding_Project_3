@@ -1,6 +1,7 @@
 let userInput; 
 let feedback = "";
 let gameStarted = false; // 游戏开始
+let backButton; // 返回按钮
 let currentCharacterIndex = 0; // 当前角色
 let currentCharacters = []; // 当前难度
 let difficulty = ""; // 难度等级
@@ -117,13 +118,27 @@ function startGame(selectedDifficulty) {
   userInput.size(240, 30); 
 
   // 提交
-  let submitButton = createButton("Submit");
+  submitButton = createButton("Submit");
   submitButton.position(440, 680); 
   submitButton.size(80, 30); 
   submitButton.mousePressed(checkAnswer); 
 
+  // 返回
+  backButton = createButton("Back");
+  backButton.position(20, 20);
+  backButton.size(80, 30);
+  backButton.mousePressed(goBack);
+
   // 随机选择一个角色
   nextCharacter();
+}
+
+function goBack() {
+  gameStarted = false;
+  userInput.remove();
+  submitButton.remove();
+  backButton.remove();
+  setup();
 }
 
 // Randomly select the next character
