@@ -27,8 +27,10 @@ function draw() {
   rect(60, 120, 480, 500, 20); 
   
   //人物
-//   drawMickeyColors();
-  drawPatrickColors();
+  // drawMickeyColors();
+  // drawPatrickColors();
+    drawPeppaColors();
+
 
   // 答题
   stroke(0); 
@@ -71,13 +73,24 @@ function draw() {
 //   rect(320, 397, 30, 30); // 右
 // }
 
-//2.派大星
-function drawPatrickColors() {
+// //2.派大星
+// function drawPatrickColors() {
+//   noStroke(); 
+//   fill("#FE9788");// 粉
+//   rect(200, 160, 200, 420, 10); 
+//   fill("#B2DB1F"); // 绿
+//   rect(200, 450, 200, 85); 
+// }
+
+//3.小猪佩奇
+function drawPeppaColors() {
   noStroke(); 
-  fill("#FE9788");// 粉
-  rect(200, 160, 200, 420, 10); 
-  fill("#B2DB1F"); // 绿
-  rect(200, 450, 200, 85); 
+  fill("#FFBDDB"); // 粉
+  rect(190, 160, 220, 420, 10, 10, 0, 0); 
+  fill("#FF2314"); // 红
+  rect(190, 380, 220, 150); 
+  fill(0); // 黑
+  rect(190, 580, 220, 15, 0, 0, 10, 10); 
 }
 
 // 检查答案是否正确
