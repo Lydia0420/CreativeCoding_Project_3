@@ -32,7 +32,8 @@ function draw() {
   // drawPeppaColors();
   // drawSquidwardColors();
   // drawGarfieldColors();
-    drawLoopyColors();
+  // drawLoopyColors();
+      drawDoraemonColors();
 
 
   // 答题
@@ -135,26 +136,36 @@ function draw() {
 //   // rect(190, 380, 220, 30); 
 // }
 
-//6.Loopy
-function drawLoppyColors() {
-  noStroke(); 
-  fill(255, 187, 190); // 粉色
-  rect(200, 195, 200, 360, 10, 10, 0, 0); 
-  fill("#4D0519"); // 深红
-  rect(200, 550, 200, 15, 0, 0, 10, 10); 
-  fill("#EFEFEF"); // 白
-  rect(240, 450, 120, 100); 
-  fill("#4D0519");//嘴
-  rect(275, 350, 50, 15);
-  fill(250);//牙
-  rect(285, 350, 30, 11, 0, 0, 10, 10);
-}
-
-//   fill(173, 216, 230); // 蓝
-//   rect(200, 195, 200, 370, 10); 
-//   fill(120, 100, 0); // 绿
-//   rect(200, 330, 200, 80);
+// //6.Loopy
+// function drawLoppyColors() {
+//   noStroke(); 
+//   fill(255, 187, 190); // 粉色
+//   rect(200, 195, 200, 360, 10, 10, 0, 0); 
+//   fill("#4D0519"); // 深红
+//   rect(200, 550, 200, 15, 0, 0, 10, 10); 
+//   fill("#EFEFEF"); // 白
+//   rect(240, 450, 120, 100); 
+//   fill("#4D0519");//嘴
+//   rect(275, 350, 50, 15);
+//   fill(250);//牙
+//   rect(285, 350, 30, 11, 0, 0, 10, 10);
 // }
+
+//7.哆啦A梦
+function drawDoraemonColors() {
+  noStroke(); 
+  fill("#00A0E9")//蓝
+  // fill(0, 191, 255); 
+  rect(180, 220, 240, 300, 10, 10, 0, 0);
+  fill(255); // 白
+  rect(180, 520, 240, 30, 0, 0, 10, 10);
+  fill(255); // 口袋
+  rect(210, 400, 180, 90, 0, 0, 10, 10); 
+  fill(255, 0, 0); // 红
+  rect(180, 400, 240, 13); 
+  fill(255, 215, 0); // 黄
+  ellipse(300, 420, 30, 30); 
+}
 
 // 检查答案是否正确
 function checkAnswer() {
