@@ -7,6 +7,8 @@ let userInput;
 let feedback = "";
 let gameStarted = false; // 游戏开始
 let backButton; // 返回按钮
+let images = {}; 
+let currentImage; // 当前图片
 let currentCharacterIndex = 0; // 当前角色
 let currentCharacters = []; // 当前难度
 let difficulty = ""; // 难度等级
@@ -80,6 +82,10 @@ function draw() {
 
     // 绘制当前角色
     currentCharacters[currentCharacterIndex].drawFunction();
+    // 显示图片
+    if (currentImage) {
+      image(currentImage, 350, 150, 200, 200); // 在右上角显示图片
+    }
 
     // 答题
     stroke(0); 
@@ -113,6 +119,32 @@ function draw() {
     textAlign(LEFT, CENTER);
     text(`Hints Left: ${hintsLeft}`, 310, 775); 
   }
+}
+
+function preload() {
+  images["mickey"] = loadImage("assets/images/mickey.png");
+  images["doraemon"] = loadImage("assets/images/doraemon.png");
+  images["patrick"] = loadImage("assets/images/patrick.png");
+  images["winniethepooh"] = loadImage("assets/images/winniethepooh.png");
+  images["loopy"] = loadImage("assets/images/loopy.png");
+  images["squidward"] = loadImage("assets/images/squidward.png");
+  images["peppa"] = loadImage("assets/images/peppa.png");
+  images["mario"] = loadImage("assets/images/mario.png");
+  images["nick"] = loadImage("assets/images/nick.png");
+  images["spongebob"] = loadImage("assets/images/spongebob.png");
+  images["garfield"] = loadImage("assets/images/garfield.png");
+  images["kungfupanda"] = loadImage("assets/images/kungfupanda.png");
+  images["pinkpanther"] = loadImage("assets/images/pinkpanther.png");
+  images["mrkrabs"] = loadImage("assets/images/mrkrabs.png");
+  images["shinchan"] = loadImage("assets/images/shinchan.png");
+  images["pompompurin"] = loadImage("assets/images/pompompurin.png");
+}
+
+function nextCharacter() {
+  currentCharacterIndex = int(random(currentCharacters.length)); 
+  currentImage = images[currentCharacters[currentCharacterIndex].name.toLowerCase()]; // 获取对应图片
+  feedback = "";
+  hintStage = 1; // 重置提示
 }
 
 function startGame(selectedDifficulty) {
@@ -243,9 +275,14 @@ function checkAnswer() {
   if (answer.toLowerCase() === correctAnswer) {
     feedback = "Correct! Well done!";
     score++;
+
+   // 立即更新图片，避免延迟影响
+    currentImage = images[currentCharacters[currentCharacterIndex].name.toLowerCase()];
+
     setTimeout(() => {
+      currentImage = null;
       nextCharacter(); // 延迟切换
-    }, 1000); // 延迟1秒
+    }, 2000); // 延迟1秒
   } else {
     feedback = "Wrong! Try again.";
   }
