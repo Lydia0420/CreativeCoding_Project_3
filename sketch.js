@@ -10,6 +10,8 @@ let backButton; // 返回按钮
 let images = {}; 
 let currentImage; // 当前图片
 let currentCharacterIndex = 0; // 当前角色
+let rectY = 120; 
+let rectHeight = 500; 
 let currentCharacters = []; // 当前难度
 let difficulty = ""; // 难度等级
 let easyButton, mediumButton, hardButton; 
@@ -84,7 +86,10 @@ function draw() {
     currentCharacters[currentCharacterIndex].drawFunction();
     // 显示图片
     if (currentImage) {
-      image(currentImage, 350, 150, 200, 200); // 在右上角显示图片
+      let imageHeight = rectHeight;
+      let aspectRatio = currentImage.width / currentImage.height;
+      let imageWidth = imageHeight * aspectRatio;
+      image(currentImage, 60 - imageWidth - 20 + 240, rectY, imageWidth, imageHeight);
     }
 
     // 答题
@@ -293,6 +298,8 @@ function checkAnswer() {
 //1.米奇
 function drawMickeyColors() {
   noStroke(); 
+  rectY = 195
+  rectHeight = 365
   fill(0); // 黑
   rect(200, 195, 200, 65, 10, 10, 0, 0); 
   fill(255, 224, 189); // 肉
@@ -313,6 +320,8 @@ function drawMickeyColors() {
 //2.派大星
 function drawPatrickColors() {
   noStroke(); 
+  rectY = 170
+  rectHeight = 430
   fill("#FE9788");// 粉
   rect(200, 160, 200, 420, 10); 
   fill("#B2DB1F"); // 绿
@@ -322,6 +331,8 @@ function drawPatrickColors() {
 //3.小猪佩奇
 function drawPeppaColors() {
   noStroke(); 
+  rectY = 160
+  rectHeight = 445
   fill("#FFBDDB"); // 粉
   rect(190, 160, 220, 420, 10, 10, 0, 0); 
   fill("#FF2314"); // 红
@@ -333,6 +344,8 @@ function drawPeppaColors() {
 //4.章鱼哥
 function drawSquidwardColors() {
   noStroke(); 
+  rectY = 195
+  rectHeight = 370
   fill("#ADD1C5"); // 蓝
   rect(210, 195, 180, 370, 10); 
   fill("#DB8E18"); // 黄
@@ -342,6 +355,8 @@ function drawSquidwardColors() {
 //5.加菲猫 
 function drawGarfieldColors() {
   noStroke(); 
+  rectY = 200
+  rectHeight = 370
   fill(255, 165, 0); // 橙
   rect(190, 200, 220, 340, 10); 
   fill("#FFFA6C"); // 浅黄
@@ -372,6 +387,8 @@ function drawGarfieldColors() {
 //6.Loopy
 function drawLoppyColors() {
   noStroke(); 
+  rectY = 195
+  rectHeight = 370
   fill(255, 187, 190); // 粉色
   rect(200, 195, 200, 360, 10, 10, 0, 0); 
   fill("#4D0519"); // 深红
@@ -387,6 +404,8 @@ function drawLoppyColors() {
 // 7.哆啦A梦
 function drawDoraemonColors() {
   noStroke(); 
+  rectY = 220
+  rectHeight = 330
   fill("#00A0E9")//蓝
   // fill(0, 191, 255); 
   rect(180, 220, 240, 300, 10, 10, 0, 0);
@@ -403,6 +422,8 @@ function drawDoraemonColors() {
 //8.小熊维尼
 function drawWinnieThePoohColors() {
   noStroke(); 
+  rectY = 195
+  rectHeight = 380
   fill("#FFC758"); // 黄
   rect(200, 195, 200, 360, 10); 
   fill("#C92A2E"); // 红
@@ -412,6 +433,8 @@ function drawWinnieThePoohColors() {
 //9.尼克
 function drawNickColors() {
   noStroke(); 
+  rectY = 160
+  rectHeight = 420
   fill("#eb8349"); // 橙
   rect(200, 160, 200, 420, 10); 
   fill("#83cf69"); // 绿
@@ -423,6 +446,8 @@ function drawNickColors() {
 //10.超级玛丽
 function drawMarioColors() {
   noStroke(); 
+  rectY = 195
+  rectHeight = 345
   fill("#F20530"); // 红
   rect(200, 195, 200, 60, 10, 10, 0, 0);
   fill("#FDCAA1"); // 脸
@@ -443,6 +468,8 @@ function drawMarioColors() {
 //11.海绵宝宝
 function drawSpongeBobColors() {
   noStroke(); 
+  rectY = 250
+  rectHeight = 270
   fill("#FFEB3B"); // 黄
   rect(200, 250, 200, 160, 10, 10, 0, 0);
   fill(255); // 白
@@ -472,6 +499,8 @@ function drawSpongeBobColors() {
 //12.粉红豹
 function drawPinkPantherColors() {
   noStroke();
+  rectY = 195
+  rectHeight = 370
   fill("#F299CA"); // 粉
   rect(200, 195, 200, 360, 10); 
   fill("#F9EAF2"); // 白
@@ -483,6 +512,8 @@ function drawPinkPantherColors() {
 //13.大雄
 function drawNobitaColors() {
   noStroke();
+  rectY = 170
+  rectHeight = 405
   fill(0); // 黑
   rect(200, 170, 200, 40, 10, 10, 0, 0); 
   fill("#FADDC5"); //脸
@@ -502,7 +533,9 @@ function drawNobitaColors() {
 //14.布丁狗
 function drawPompompurinColors() {
   noStroke(); 
-   fill("#76332E"); // 棕
+  rectY = 230
+  rectHeight = 270
+  fill("#76332E"); // 棕
   rect(200, 270, 200, 30, 10, 10, 0, 0);
   fill("#F5E79C"); // 黄
   rect(200, 300, 200, 200, 0, 0, 10, 10);
@@ -533,6 +566,8 @@ function drawPompompurinColors() {
 //15.蟹老板
 function drawMrKrabsColors() {
   noStroke(); 
+  rectY = 240
+  rectHeight = 292
   fill("#AFF29B")
   rect(200, 250, 200, 100, 10, 10, 0, 0);
   fill("#F22E3E"); // 红
@@ -548,6 +583,8 @@ function drawMrKrabsColors() {
 //16.功夫熊猫
 function drawKungFuPandaColors() {
   noStroke(); 
+  rectY = 165
+  rectHeight = 380   
   fill(0); // 黑
   rect(210, 195, 190, 20, 10, 10, 0, 0); 
   fill(255); // 脸
@@ -575,13 +612,15 @@ function drawKungFuPandaColors() {
   rect(210, 470, 190, 30);
   fill("#B8A276"); // 腿套
   rect(210, 500, 190, 20);
-  fill("#A66933"); // 裤
+  fill("#A66933"); // 鞋
   rect(210, 520, 190, 10, 0, 0, 10, 10);
 }
 
 //17.蜡笔小新
 function drawShinchanColors() {
   noStroke(); 
+  rectY = 210
+  rectHeight = 335
   fill(0); // 黑
   rect(200, 210, 200, 20, 10, 10, 0, 0); 
   fill(255, 224, 189); // 肉
