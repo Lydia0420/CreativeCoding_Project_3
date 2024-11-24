@@ -1,4 +1,5 @@
-let hintsLeft = 3; // 提示次数
+let hintsLeft = 5; // 提示次数
+let hintStage = 1; // 提示阶段
 let score = 0;
 let timeLeft = 60; // 初始时间
 const maxTime = 60;
@@ -12,29 +13,29 @@ let difficulty = ""; // 难度等级
 let easyButton, mediumButton, hardButton; 
 
 let easyCharacters = [
-  { name: "Mickey", drawFunction: drawMickeyColors },
-  { name: "Doraemon", drawFunction: drawDoraemonColors },
-  { name: "Patrick", drawFunction: drawPatrickColors },
-  { name: "WinnieThePooh", drawFunction: drawWinnieThePoohColors },
-  { name: "Loopy", drawFunction: drawLoppyColors },
-  { name: "Squidward", drawFunction: drawSquidwardColors }
+  { name: "Mickey", drawFunction: drawMickeyColors, hint: "A famous mouse with big ears." },
+  { name: "Doraemon", drawFunction: drawDoraemonColors, hint: "Have a magical pocket." },
+  { name: "Patrick", drawFunction: drawPatrickColors, hint: "Pink starfish." },
+  { name: "WinnieThePooh", drawFunction: drawWinnieThePoohColors, hint:"Love honey!" },
+  { name: "Loopy", drawFunction: drawLoppyColors, hint:"Like cooking and lives in a forest." },
+  { name: "Squidward", drawFunction: drawSquidwardColors, hint:"Grumpy!" }
 ];
 
 let mediumCharacters = [
-  { name: "Peppa", drawFunction: drawPeppaColors },
-  { name: "Mario", drawFunction: drawMarioColors },
-  { name: "Nick", drawFunction: drawNickColors },
-  { name: "SpongeBob", drawFunction: drawSpongeBobColors },
-  { name: "Garfield", drawFunction: drawGarfieldColors }
+  { name: "Peppa", drawFunction: drawPeppaColors, hint:"A cheerful pink pig." },
+  { name: "Mario", drawFunction: drawMarioColors, hint:"Plumber." },
+  { name: "Nick", drawFunction: drawNickColors, hint:"From a famous animated movie." },
+  { name: "SpongeBob", drawFunction: drawSpongeBobColors, hint:"Living at the bottom of the sea." },
+  { name: "Garfield", drawFunction: drawGarfieldColors, hint:"Lazy cat." }
 ];
 
 let hardCharacters = [
-  { name: "KungFuPanda", drawFunction: drawKungFuPandaColors },
-  { name: "PinkPanther", drawFunction: drawPinkPantherColors },
-  { name: "MrKrabs", drawFunction: drawMrKrabsColors },
-  { name: "Shinchan", drawFunction: drawShinchanColors },
+  { name: "KungFuPanda", drawFunction: drawKungFuPandaColors, hint:"Skilled in Chinese martial." },
+  { name: "PinkPanther", drawFunction: drawPinkPantherColors, hint:"A stylish pink cat." },
+  { name: "MrKrabs", drawFunction: drawMrKrabsColors, hint:"Owns a burger restaurant." },
+  { name: "Shinchan", drawFunction: drawShinchanColors, hint:"A mischievous boy and a knack for trouble." },
   // { name: "ChibiMaruko", drawFunction: drawChibiMarukoColors },
-  { name: "Pompompurin", drawFunction: drawPompompurinColors }
+  { name: "Pompompurin", drawFunction: drawPompompurinColors, hint:"A golden retriever with a brown beret." }
 ];
 
 function setup() {
@@ -166,16 +167,23 @@ function startGame(selectedDifficulty) {
 
 function showHint() {
   if (hintsLeft > 0) {
-    hintsLeft--;
-    // 获取角色名
-    let currentName = currentCharacters[currentCharacterIndex].name;
+    hintsLeft--; 
 
-    // 生成提示：
-    let hint = currentName.split("").map((char, index) => {
-      return (index === 0 || index === currentName.length - 1) ? char : "*";
-    }).join("");
+    let currentCharacter = currentCharacters[currentCharacterIndex];
+    if (hintStage === 1) {
+      // 1：角色特征
+      feedback = `Hint: ${currentCharacter.hint}`;
+      hintStage++; 
+    } else if (hintStage === 2) {
+      // 2：部分文字
+      let name = currentCharacter.name;
+      let partialHint = name.split("").map((char, index) => {
+        return (index === 0 || index === name.length - 1) ? char : "*";
+      }).join("");
 
-    feedback = `Hint: ${hint}`;
+      feedback = `Hint: ${partialHint}`;
+      hintStage = 1; 
+    }
   } else {
     feedback = "No hints left!";
   }
@@ -206,6 +214,11 @@ function startTimer(){
   }, 1000); //每秒减1
 }
 
+function gameOver() {
+  goBack(); 
+  feedback = "Time Over! Restart the game.";
+}
+
 function drawHealthBar(){
   fill(200);
   rect(60, 80, 480, 20);
@@ -220,6 +233,7 @@ function drawHealthBar(){
 function nextCharacter() {
   currentCharacterIndex = int(random(currentCharacters.length)); // 随机角色
   feedback = "";
+  hintStage = 1; 
 }
 
 // Check answer correct
