@@ -39,6 +39,7 @@ let hardCharacters = [
   { name: "MrKrabs", drawFunction: drawMrKrabsColors, hint:"Owns a burger restaurant." },
   { name: "Shinchan", drawFunction: drawShinchanColors, hint:"A mischievous boy and a knack for trouble." },
   // { name: "ChibiMaruko", drawFunction: drawChibiMarukoColors },
+  { name: "Nobita", drawFunction: drawNobitaColors, hint: "A boy who always relies on Doraemon." },
   { name: "Pompompurin", drawFunction: drawPompompurinColors, hint:"A golden retriever with a brown beret." }
 ];
 
@@ -143,6 +144,7 @@ function preload() {
   images["mrkrabs"] = loadImage("assets/images/mrkrabs.png");
   images["shinchan"] = loadImage("assets/images/shinchan.png");
   images["pompompurin"] = loadImage("assets/images/pompompurin.png");
+  images["nobita"] = loadImage("assets/images/nobita.png");
 }
 
 function nextCharacter() {
@@ -284,12 +286,18 @@ function checkAnswer() {
    // 立即更新图片，避免延迟影响
     currentImage = images[currentCharacters[currentCharacterIndex].name.toLowerCase()];
 
+   //奖励时间
+    timeLeft = min(maxTime, timeLeft + 5);
+    
     setTimeout(() => {
       currentImage = null;
       nextCharacter(); // 延迟切换
     }, 2000); // 延迟1秒
   } else {
     feedback = "Wrong! Try again.";
+
+   //扣除时间
+    timeLeft = max(0, timeLeft - 3);
   }
   userInput.value("");
 }
