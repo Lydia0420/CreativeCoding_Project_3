@@ -10,8 +10,8 @@ let backButton; // 返回按钮
 let images = {}; 
 let currentImage; // 当前图片
 let currentCharacterIndex = 0; // 当前角色
-let rectY = 120; 
-let rectHeight = 500; 
+let rectY = 0; 
+let rectHeight = 0; 
 let currentCharacters = []; // 当前难度
 let difficulty = ""; // 难度等级
 let easyButton, mediumButton, hardButton; 
@@ -30,7 +30,9 @@ let mediumCharacters = [
   { name: "Mario", drawFunction: drawMarioColors, hint:"Plumber." },
   { name: "Nick", drawFunction: drawNickColors, hint:"From a famous animated movie." },
   { name: "SpongeBob", drawFunction: drawSpongeBobColors, hint:"Living at the bottom of the sea." },
-  { name: "Garfield", drawFunction: drawGarfieldColors, hint:"Lazy cat." }
+  { name: "Garfield", drawFunction: drawGarfieldColors, hint:"Lazy cat." },
+  { name: "BuzzLightYear", drawFunction: drawBuzzLightYear, hint:"A future astronaut bent on saving the earth."},
+  { name: "Shrek", drawFunction: drawShrek, hint:"A green ogre living in the swamp." }
 ];
 
 let hardCharacters = [
@@ -38,7 +40,7 @@ let hardCharacters = [
   { name: "PinkPanther", drawFunction: drawPinkPantherColors, hint:"A stylish pink cat." },
   { name: "MrKrabs", drawFunction: drawMrKrabsColors, hint:"Owns a burger restaurant." },
   { name: "Shinchan", drawFunction: drawShinchanColors, hint:"A mischievous boy and a knack for trouble." },
-  // { name: "ChibiMaruko", drawFunction: drawChibiMarukoColors },
+  { name: "ChibiMaruko", drawFunction: drawChibiMarukoColors, hint:"A little girl with a lovely grandfather." },
   { name: "Nobita", drawFunction: drawNobitaColors, hint: "A boy who always relies on Doraemon." },
   { name: "Pompompurin", drawFunction: drawPompompurinColors, hint:"A golden retriever with a brown beret." }
 ];
@@ -139,11 +141,14 @@ function preload() {
   images["nick"] = loadImage("assets/images/nick.png");
   images["spongebob"] = loadImage("assets/images/spongebob.png");
   images["garfield"] = loadImage("assets/images/garfield.png");
+  images["chibimaruko"] = loadImage("assets/images/chibimaruko.png");
   images["kungfupanda"] = loadImage("assets/images/kungfupanda.png");
   images["pinkpanther"] = loadImage("assets/images/pinkpanther.png");
   images["mrkrabs"] = loadImage("assets/images/mrkrabs.png");
   images["shinchan"] = loadImage("assets/images/shinchan.png");
   images["pompompurin"] = loadImage("assets/images/pompompurin.png");
+  images["buzzlightyear"] = loadImage("assets/images/buzzlightyear.png");
+  images["shrek"] = loadImage("assets/images/shrek.png");
   images["nobita"] = loadImage("assets/images/nobita.png");
 }
 
@@ -281,22 +286,30 @@ function checkAnswer() {
   let correctAnswer = currentCharacters[currentCharacterIndex].name.toLowerCase();
   if (answer.toLowerCase() === correctAnswer) {
     feedback = "Correct! Well done!";
-    score++;
+    score += 10; // 每次答对积10分
 
-   // 立即更新图片，避免延迟影响
-    currentImage = images[currentCharacters[currentCharacterIndex].name.toLowerCase()];
+    // 移除已经回答过的角色
+    currentCharacters.splice(currentCharacterIndex, 1);
+    if (currentCharacters.length === 0) {
+      feedback = `Congratulations! You've completed all questions! Final Score: ${score}`;
+      gameOver(); // 如果所有问题回答完毕，结束游戏
+      return;
+    }
 
-   //奖励时间
+    // 立即更新图片，避免延迟影响
+    currentImage = images[correctAnswer];
+
+    // 奖励时间
     timeLeft = min(maxTime, timeLeft + 5);
     
     setTimeout(() => {
       currentImage = null;
-      nextCharacter(); // 延迟切换
-    }, 2000); // 延迟1秒
+      nextCharacter(); // 延迟切换到下一个问题
+    }, 2000); // 延迟2秒
   } else {
     feedback = "Wrong! Try again.";
 
-   //扣除时间
+    // 扣除时间
     timeLeft = max(0, timeLeft - 3);
   }
   userInput.value("");
@@ -646,4 +659,73 @@ function drawShinchanColors() {
 }
 
 //18.樱桃小丸子
+function drawChibiMarukoColors() {
+  noStroke();
+  rectY = 190
+  rectHeight = 365
+  fill("#212B40"); // 黑
+  rect(200, 190, 200, 50, 10, 10, 0, 0); 
+  fill("#F2D5C4"); // 肉
+  rect(200, 240, 200, 120); 
+  fill(255); // 白
+  rect(200, 360, 200, 80);
+  fill("#E30140"); // 红
+  rect(200, 440, 200, 55);
+   fill("#E30140"); // 红
+   rect(240, 360, 12, 80);
+   fill("#E30140"); // 红
+   rect(350, 360, 12, 80);
+  fill("#F2D5C4"); // 肉
+  rect(200, 495, 200, 25); 
+  fill(255); // 白
+  rect(200, 520, 200, 25);
+  fill("#9B3235"); // 鞋
+  rect(200, 545, 200, 10, 0, 0, 10, 10);
+}
+
+ //19.巴斯光年
+ function drawBuzzLightYear() {
+  noStroke(); 
+  rectY = 170
+  rectHeight = 360   
+  fill("#7C3E8B"); // 紫
+  rect(210, 170, 190, 20, 10, 10, 0, 0); 
+  fill("#FBE2C3"); // 肉
+  rect(210, 190, 190, 70); 
+  fill("#BCEF7D"); // 绿
+  rect(210, 260, 190, 60);
+  fill(255); // 白
+  rect(210, 320, 190, 180); 
+  fill(0); // 黑
+  rect(210, 350, 190, 30);
+  fill("#BCEF7D");
+  rect(210, 380, 190, 10)
+  fill("#BCEF7D"); // 腿套
+  rect(210, 500, 190, 20);
+  fill("#7C3E8B"); // 鞋
+  rect(210, 520, 190, 10, 0, 0, 10, 10);
+}
+
+//20.史莱克
+function draw1() {
+  noStroke(); 
+  rectY = 190
+  rectHeight = 370
+  fill("#D1C620"); // 绿
+  rect(200, 190, 200, 370, 10); 
+  fill("#E7D6A3")
+  rect(200, 290, 200, 10)
+  fill("#5C4938"); // 棕
+  rect(200, 300, 200, 50); 
+  fill("#EFDDA9");
+  rect(200, 350, 200, 75)
+  fill("#5C4938"); // 棕
+  rect(200, 425, 200, 7); 
+  fill("#E7D6A3");
+  rect(200, 432, 200, 35)
+  fill("#5D4C3D"); 
+  rect(200, 467, 200, 63); 
+  fill("#49403D"); // 棕
+  rect(200, 530, 200, 30, 0, 0, 10, 10); 
+  }
 
