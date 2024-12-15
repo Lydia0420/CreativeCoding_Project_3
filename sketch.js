@@ -1,20 +1,23 @@
-let hintsLeft = 5; // 提示次数
-let hintStage = 1; // 提示阶段
+let hintsLeft = 10; 
+let hintStage = 1; 
 let score = 0;
-let timeLeft = 60; // 初始时间
-const maxTime = 60;
-let userInput; 
+let timeLeft = 30; // 初始时间
+const maxTime = 30;
+let userInput;
 let feedback = "";
 let gameStarted = false; // 游戏开始
-let backButton; // 返回按钮
-let images = {}; 
+let images = {};
+let hintImages = {}; 
 let currentImage; // 当前图片
 let currentCharacterIndex = 0; // 当前角色
-let rectY = 0; 
-let rectHeight = 0; 
+let currentHintImage; 
+let usedCharacters = [];
+let rectY = 0;
+let rectHeight = 0;
 let currentCharacters = []; // 当前难度
 let difficulty = ""; // 难度等级
-let easyButton, mediumButton, hardButton; 
+let easyButton, mediumButton, hardButton;
+let submitButton, hintButton;
 
 let easyCharacters = [
   { name: "Mickey", drawFunction: drawMickeyColors, hint: "A famous mouse with big ears." },
@@ -31,8 +34,8 @@ let mediumCharacters = [
   { name: "Nick", drawFunction: drawNickColors, hint:"From a famous animated movie." },
   { name: "SpongeBob", drawFunction: drawSpongeBobColors, hint:"Living at the bottom of the sea." },
   { name: "Garfield", drawFunction: drawGarfieldColors, hint:"Lazy cat." },
-  { name: "BuzzLightYear", drawFunction: drawBuzzLightYear, hint:"A future astronaut bent on saving the earth."},
-  { name: "Shrek", drawFunction: drawShrek, hint:"A green ogre living in the swamp." }
+	{ name: "BuzzLightYear", drawFunction: drawBuzzLightYearColors, hint:"A future astronaut bent on saving the earth."},
+  { name: "Shrek", drawFunction: drawShrekColors, hint:"A green ogre living in the swamp."}
 ];
 
 let hardCharacters = [
@@ -45,37 +48,46 @@ let hardCharacters = [
   { name: "Pompompurin", drawFunction: drawPompompurinColors, hint:"A golden retriever with a brown beret." }
 ];
 
+let scaleFactor; // 全局缩放比例
+
 function setup() {
-  createCanvas(600, 800); 
+  createCanvas(windowWidth, windowHeight);
+  calculateScale();
 
-  //三个按钮
   easyButton = createButton("Easy");
-  easyButton.position(width / 2 - 50, height / 2 - 80);
-  easyButton.size(100, 50);
-  easyButton.mousePressed(() => startGame("easy"));
-
   mediumButton = createButton("Medium");
-  mediumButton.position(width / 2 - 50, height / 2);
-  mediumButton.size(100, 50);
-  mediumButton.mousePressed(() => startGame("medium"));
-
   hardButton = createButton("Hard");
-  hardButton.position(width / 2 - 50, height / 2 + 80);
+
+  easyButton.size(100, 50);
+  mediumButton.size(100, 50);
   hardButton.size(100, 50);
+
+  positionButtons();
+  easyButton.mousePressed(() => startGame("easy"));
+  mediumButton.mousePressed(() => startGame("medium"));
   hardButton.mousePressed(() => startGame("hard"));
 }
 
 function draw() {
+	 background(233, 185, 110); // 背景颜色
+   translate((width - 600 * scaleFactor) / 2, (height - 800 * scaleFactor) / 2); 
+   scale(scaleFactor); 
+	
    if (!gameStarted) {
     //初始界面
-    background(233, 185, 110); // 背景
+    background(233, 185, 110); 
     fill(255);
     textSize(32);
     textAlign(CENTER, CENTER);
-    text("Select Difficulty", width / 2, height / 2 - 200);
+    text("Select Difficulty", 300, 200);
   } else {
+		drawGameScreen();
+	}
+}
+
+function drawGameScreen(){
   // 游戏主界面
-    background(233, 185, 110); // 背景
+    background(233, 185, 110); 
     //浅黄
     stroke(0); 
     strokeWeight(5);
@@ -109,24 +121,61 @@ function draw() {
     textSize(20); 
     textStyle(BOLD); 
     textAlign(CENTER, CENTER);
-    text("Enter your answer below:", width / 2, 635); 
+    text("Enter your answer below:", 300, 635); 
 
     // Feedback
     fill(255,0,0);
     textSize(20); 
-    text(feedback, width / 2, 730); 
+    text(feedback, 300, 730); 
 
     // Score 
     fill(0);
     textSize(20);
-    text(`Score: ${score}`, width - 100, 50); 
+    text(`Score: ${score}`, 500, 50); 
 
     // Hints
     fill(0);
     textSize(20);
     textAlign(LEFT, CENTER);
     text(`Hints Left: ${hintsLeft}`, 310, 775); 
-  }
+	
+    // 显示提示图片（第二阶段）
+  if (currentHintImage) {
+    let desiredWidth = 150; // 统一的显示宽度
+    let aspectRatio = currentHintImage.height / currentHintImage.width; // 计算宽高比
+    let scaledHeight = desiredWidth * aspectRatio; // 根据宽高比计算高度
+    image(currentHintImage, 0, 300, desiredWidth, scaledHeight);
+	}
+}
+
+function calculateScale() {
+  // 计算适合窗口大小的缩放比例
+  scaleFactor = min(windowWidth / 600, windowHeight / 800);
+}
+
+function positionButtons() {
+  const canvasX = (windowWidth - 600 * scaleFactor) / 2;
+  const canvasY = (windowHeight - 800 * scaleFactor) / 2;
+
+  easyButton.position(canvasX + 250 * scaleFactor, canvasY + 300 * scaleFactor);
+  mediumButton.position(canvasX + 250 * scaleFactor, canvasY + 400 * scaleFactor);
+  hardButton.position(canvasX + 250 * scaleFactor, canvasY + 500 * scaleFactor);
+}
+
+function positionGameElements() {
+  const canvasX = (windowWidth - 600 * scaleFactor) / 2;
+  const canvasY = (windowHeight - 800 * scaleFactor) / 2;
+
+  userInput.position(canvasX + 180 * scaleFactor, canvasY + 680 * scaleFactor);
+  submitButton.position(canvasX + 440 * scaleFactor, canvasY + 685 * scaleFactor);
+  hintButton.position(canvasX + 440 * scaleFactor, canvasY + 760 * scaleFactor);
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  calculateScale();
+  positionButtons();
+	if (gameStarted) positionGameElements();
 }
 
 function preload() {
@@ -141,15 +190,36 @@ function preload() {
   images["nick"] = loadImage("assets/images/nick.png");
   images["spongebob"] = loadImage("assets/images/spongebob.png");
   images["garfield"] = loadImage("assets/images/garfield.png");
-  images["chibimaruko"] = loadImage("assets/images/chibimaruko.png");
   images["kungfupanda"] = loadImage("assets/images/kungfupanda.png");
   images["pinkpanther"] = loadImage("assets/images/pinkpanther.png");
   images["mrkrabs"] = loadImage("assets/images/mrkrabs.png");
   images["shinchan"] = loadImage("assets/images/shinchan.png");
   images["pompompurin"] = loadImage("assets/images/pompompurin.png");
-  images["buzzlightyear"] = loadImage("assets/images/buzzlightyear.png");
-  images["shrek"] = loadImage("assets/images/shrek.png");
   images["nobita"] = loadImage("assets/images/nobita.png");
+	images["chibimaruko"] = loadImage("assets/images/chibimaruko.png");
+  images["buzzlightyear"] = loadImage("assets/images/buzzlightyear.png");
+	images["shrek"] = loadImage("assets/images/shrek.png");
+	
+  hintImages["mickey"] = loadImage("assets/images/mickey_hint.png");
+  hintImages["doraemon"] = loadImage("assets/images/doraemon_hint.png");
+  hintImages["patrick"] = loadImage("assets/images/patrick_hint.png");
+  hintImages["winniethepooh"] = loadImage("assets/images/winniethepooh_hint.png");
+  hintImages["loopy"] = loadImage("assets/images/loopy_hint.png");
+  hintImages["squidward"] = loadImage("assets/images/squidward_hint.png");
+  hintImages["peppa"] = loadImage("assets/images/peppa_hint.png");
+  hintImages["mario"] = loadImage("assets/images/mario_hint.png");
+  hintImages["nick"] = loadImage("assets/images/nick_hint.png");
+  hintImages["spongebob"] = loadImage("assets/images/spongebob_hint.png");
+  hintImages["garfield"] = loadImage("assets/images/garfield_hint.png");
+  hintImages["kungfupanda"] = loadImage("assets/images/kungfupanda_hint.png");
+  hintImages["pinkpanther"] = loadImage("assets/images/pinkpanther_hint.png");
+  hintImages["mrkrabs"] = loadImage("assets/images/mrkrabs_hint.png");
+  hintImages["shinchan"] = loadImage("assets/images/shinchan_hint.png");
+  hintImages["pompompurin"] = loadImage("assets/images/pompompurin_hint.png");
+  hintImages["nobita"] = loadImage("assets/images/nobita_hint.png");
+	hintImages["chibimaruko"] = loadImage("assets/images/chibimaruko_hint.png");
+	hintImages["buzzlightyear"] = loadImage("assets/images/buzzlightyear_hint.jpg");
+  hintImages["shrek"] = loadImage("assets/images/shrek_hint.jpg");
 }
 
 function nextCharacter() {
@@ -181,33 +251,28 @@ function startGame(selectedDifficulty) {
 
   // 输入框
   userInput = createInput();
-  userInput.position(180, 680); 
   userInput.size(240, 30); 
 
   // 提交
   submitButton = createButton("Submit");
-  submitButton.position(440, 680); 
   submitButton.size(80, 30); 
   submitButton.mousePressed(checkAnswer); 
 
-  // 返回
-  backButton = createButton("Back");
-  backButton.position(20, 20);
-  backButton.size(80, 30);
-  backButton.mousePressed(goBack);
-
   // 提示按钮
-  let hintButton = createButton("Hint"); 
-  hintButton.position(440, 760); 
+  hintButton = createButton("Hint"); 
   hintButton.size(80, 30); 
   hintButton.mousePressed(showHint);
+	
+	positionGameElements();
 
   //倒计时
   startTimer();
 
   // 随机选择一个角色
   nextCharacter();
+	usedCharacters = [];
 }
+
 
 function showHint() {
   if (hintsLeft > 0) {
@@ -218,15 +283,24 @@ function showHint() {
       // 1：角色特征
       feedback = `Hint: ${currentCharacter.hint}`;
       hintStage++; 
-    } else if (hintStage === 2) {
-      // 2：部分文字
+		 } else if (hintStage === 2) {
+      // 第二次点击：显示提示图片
+      currentHintImage = hintImages[currentCharacter.name.toLowerCase()];
+      feedback = "Here's a related image hint!";
+      hintStage++;
+    } else if (hintStage === 3) {
+      // 第三次点击：显示字幕（部分角色名称）
       let name = currentCharacter.name;
-      let partialHint = name.split("").map((char, index) => {
-        return (index === 0 || index === name.length - 1) ? char : "*";
-      }).join("");
+      let partialName = name.split("").map((char, index) => {
+          if (index === 0 || index === name.length - 1) {
+            return char; // 显示首字母和末字母
+          } else {
+            return "*"; // 其他字母替换为 *
+          }
+        }).join(""); // 重新组合成字符串
 
-      feedback = `Hint: ${partialHint}`;
-      hintStage = 1; 
+      feedback = `Hint: ${partialName}`;
+      hintStage = 1; // 重置提示阶段
     }
   } else {
     feedback = "No hints left!";
@@ -240,7 +314,6 @@ function goBack() {
   timeLeft = maxTime;
   userInput.remove();
   submitButton.remove();
-  backButton.remove();
   setup();
 }
 
@@ -274,10 +347,34 @@ function drawHealthBar(){
 }
 
 // Randomly select the next character
+// function nextCharacter() {
+//   currentCharacterIndex = int(random(currentCharacters.length)); // 随机角色
+//   feedback = "";
+//   hintStage = 1; 
+// }
 function nextCharacter() {
-  currentCharacterIndex = int(random(currentCharacters.length)); // 随机角色
+  if (usedCharacters.length === currentCharacters.length) {
+    // 所有角色都已出现
+    feedback = "All characters have been shown!";
+    gameOver(); // 游戏结束或重新开始
+    return;
+  }
+	  let newCharacterIndex;
+
+  // 随机选择未出现过的角色
+  do {
+    newCharacterIndex = int(random(currentCharacters.length));
+  } while (usedCharacters.includes(newCharacterIndex));
+
+  // 记录已出现的角色索引
+  usedCharacters.push(newCharacterIndex);
+
+  currentCharacterIndex = newCharacterIndex;
+  currentImage = images[currentCharacters[currentCharacterIndex].name.toLowerCase()];
+  currentHintImage = null; // 清空提示图片
   feedback = "";
-  hintStage = 1; 
+  hintStage = 1; // 重置提示阶段
+	currentImage = null; 
 }
 
 // Check answer correct
@@ -286,30 +383,22 @@ function checkAnswer() {
   let correctAnswer = currentCharacters[currentCharacterIndex].name.toLowerCase();
   if (answer.toLowerCase() === correctAnswer) {
     feedback = "Correct! Well done!";
-    score += 10; // 每次答对积10分
+    score++;
 
-    // 移除已经回答过的角色
-    currentCharacters.splice(currentCharacterIndex, 1);
-    if (currentCharacters.length === 0) {
-      feedback = `Congratulations! You've completed all questions! Final Score: ${score}`;
-      gameOver(); // 如果所有问题回答完毕，结束游戏
-      return;
-    }
+   // 立即更新图片，避免延迟影响
+    currentImage = images[currentCharacters[currentCharacterIndex].name.toLowerCase()];
 
-    // 立即更新图片，避免延迟影响
-    currentImage = images[correctAnswer];
-
-    // 奖励时间
+   //奖励时间
     timeLeft = min(maxTime, timeLeft + 5);
     
     setTimeout(() => {
       currentImage = null;
-      nextCharacter(); // 延迟切换到下一个问题
-    }, 2000); // 延迟2秒
+      nextCharacter(); // 延迟切换
+    }, 2000); // 延迟1秒
   } else {
     feedback = "Wrong! Try again.";
 
-    // 扣除时间
+   //扣除时间
     timeLeft = max(0, timeLeft - 3);
   }
   userInput.value("");
@@ -684,7 +773,7 @@ function drawChibiMarukoColors() {
 }
 
  //19.巴斯光年
- function drawBuzzLightYear() {
+ function drawBuzzLightYearColors() {
   noStroke(); 
   rectY = 170
   rectHeight = 360   
@@ -707,7 +796,7 @@ function drawChibiMarukoColors() {
 }
 
 //20.史莱克
-function draw1() {
+function drawShrekColors() {
   noStroke(); 
   rectY = 190
   rectHeight = 370
@@ -727,5 +816,5 @@ function draw1() {
   rect(200, 467, 200, 63); 
   fill("#49403D"); // 棕
   rect(200, 530, 200, 30, 0, 0, 10, 10); 
-  }
+}
 
